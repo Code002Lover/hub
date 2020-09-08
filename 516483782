@@ -1,0 +1,6 @@
+local args = {
+  [1] = game:GetService("Players").LocalPlayer.Name.." has a 1000 combo streak on expert difficulty!",
+  [2] = 1
+}
+
+game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
