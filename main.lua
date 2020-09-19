@@ -1,4 +1,4 @@
-_G.gui = true
+
 local games = {
   [5306244457] = "https://raw.githubusercontent.com/Mystikfluu/clicking_masters/master/Clicking_masters_obfuscated.lua",
   [4788059999] = "https://raw.githubusercontent.com/Mystikfluu/work_at_a_trampoline_park/master/script.lua",
@@ -13,7 +13,8 @@ local marketplaceService = game:GetService("MarketplaceService")
 
 function getlink(id2)
   id2 = id2 or game.PlaceId
-  return games[id2] or "https://github.com/Mystikfluu/hub/raw/master/main.lua"
+  if(id2 == nil) then id2 = game.PlaceId end
+  return games[id2] or 'https://github.com/Mystikfluu/hub/raw/master/main.lua'
 end
 function getname(id)
   return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
@@ -24,9 +25,9 @@ if(_G.gui) then
   local frame = window:CreateFolder("games")
   for i, v in pairs(games) do
     frame:Button(getname(i), function()
-      loadstring(game:HttpGet(getlink() or "https://github.com/Mystikfluu/hub/raw/master/main.lua"))()
+      loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
     end)
   end
 else
-  loadstring(game:HttpGet(getlink()))()
+  loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
 end
