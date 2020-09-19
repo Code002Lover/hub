@@ -8,6 +8,7 @@ local games = {
   [4625315806] = "https://raw.githubusercontent.com/Mystikfluu/sef/master/main.lua",
   [516483782] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/516483782"
 }
+local deleted = false
 local version = game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version")
 local marketplaceService = game:GetService("MarketplaceService")
 
@@ -25,18 +26,21 @@ if(_G.gui) then
   local frame = window:CreateFolder("games")
   for i, v in pairs(games) do
     frame:Button(getname(i), function()
+      deleted = window:Destroy()
       loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
+
     end)
   end
 else
   loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
 end
+
 local versioncoroutine = coroutine.create(function()
-  while wait(5) do
+  while wait(5) and deleted == false do
   if game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version") ~= version then
-  loadstring(game:HttpGet('https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
-  coroutine.yield()
-end
+    loadstring(game:HttpGet(('https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
+    coroutine.yield()
+  end
 end
 end)
 coroutine.resume(versioncoroutine)
