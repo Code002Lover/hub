@@ -31,3 +31,12 @@ if(_G.gui) then
 else
   loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
 end
+local versioncoroutine = coroutine.create(function()
+  while wait(5) do
+  if game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version") ~= version then
+  loadstring(game:HttpGet('https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
+  coroutine.yield()
+end
+end
+end)
+coroutine.resume(versioncoroutine)
