@@ -7,7 +7,7 @@ local games = {
   [5420697005] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/5420697005",
   [4625315806] = "https://raw.githubusercontent.com/Mystikfluu/sef/master/main.lua",
   [516483782] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/516483782",
-  [5305282088] = "https://raw.githubusercontent.com/Mystikfluu/5305282088/master/5305282088.lua",
+  [5305282088] = "https://raw.githubusercontent.com/Mystikfluu/5305282088/main/5305282088.lua",
 }
 local deleted = false
 local version = game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version")
