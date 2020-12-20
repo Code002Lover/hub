@@ -15,8 +15,8 @@ local games = {
 local deleted = false
 local version = game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version")
 local marketplaceService = game:GetService("MarketplaceService")
-for i2,v2 in pairs(game.CoreGui:GetChildren()) do
-  for i,v in pairs(v2:GetChildren()) do
+for k,s in pairs(game.CoreGui:GetChildren()) do
+  for i,v in pairs(s:GetChildren()) do
   if v.Name == "SideMenu" or v.Name == "SettingsPanel" or v.Name == "ExplorerPanel" or v.Name == "PropertiesFrame" then
        game.Players.LocalPlayer:Kick("Do not use dex you retarded monkey!")
        wait(5)
