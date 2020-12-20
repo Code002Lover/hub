@@ -24,7 +24,6 @@ for k,s in pairs(game.CoreGui:GetChildren()) do
        end
    end
 end
-end
 game.CoreGui.ChildAdded:Connect(function(k)
 local s = k:GetChildren()
 for i,v in pairs(s) do
