@@ -16,6 +16,7 @@ local games = {
 local deleted = false
 local version = game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version")
 local marketplaceService = game:GetService("MarketplaceService")
+hookfunction(saveinstance,function() print("plis no saveinstance thx nub") return wait(9e9) end)
 function othermethod()
   success, error1 = pcall(function() game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/"..game.PlaceId.."/main/"..game.PlaceId) end)
   if(error1) then
