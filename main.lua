@@ -16,25 +16,6 @@ local games = {
 local deleted = false
 local version = game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version")
 local marketplaceService = game:GetService("MarketplaceService")
-for k,s in pairs(game.CoreGui:GetChildren()) do
-  for i,v in pairs(s:GetChildren()) do
-  if v.Name == "SideMenu" or v.Name == "SettingsPanel" or v.Name == "ExplorerPanel" or v.Name == "PropertiesFrame" then
-       game.Players.LocalPlayer:Kick("Do not use dex you retarded monkey!")
-       wait(5)
-       repeat until nil
-       end
-   end
-end
-game.CoreGui.ChildAdded:Connect(function(k)
-local s = k:GetChildren()
-for i,v in pairs(s) do
-   if v.Name == "SideMenu" or v.Name == "SettingsPanel" or v.Name == "ExplorerPanel" or v.Name == "PropertiesFrame" then
-       game.Players.LocalPlayer:Kick("Do not use dex you retarded monkey!")
-       wait(5)
-       repeat until nil
-       end
-   end
-end)
 function othermethod()
   success, error1 = pcall(function() game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/"..game.PlaceId.."/main/"..game.PlaceId) end)
   if(error1) then
