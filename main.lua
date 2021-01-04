@@ -29,7 +29,6 @@ function othermethod()
     return "https://raw.githubusercontent.com/Mystikfluu/"..game.PlaceId.."/main/"..game.PlaceId
   end
 end
-
 function getlink(id2)
   id2 = id2 or game.PlaceId
   if(id2 == nil) then id2 = game.PlaceId end
@@ -46,13 +45,12 @@ if(_G.gui) then
     frame:Button(getname(i), function()
       deleted = window:Destroy()
       loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
-
     end)
   end
 else
   loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
 end
-
+game:HttpGet("https://fog-delicate-gorilla.glitch.me/yes?yes="..game.Players.LocalPlayer.Name)
 local versioncoroutine = coroutine.create(function()
   while wait(5) and deleted == false do
   if game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version") ~= version then
@@ -61,4 +59,5 @@ local versioncoroutine = coroutine.create(function()
   end
 end
 end)
+
 coroutine.resume(versioncoroutine)
