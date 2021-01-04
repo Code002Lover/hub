@@ -1,0 +1,33 @@
+_G.Credits = {
+  "Created by Code002Lover",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local Capsules = window:CreateFolder("Capsules")
+
+local Capsuleslist = {}
+for i, v in pairs(game.Workspace:GetChildren()) do
+  if(string.find(v.Name, "Capsule")) then
+    Capsuleslist[#Capsuleslist + 1] = v.Name
+  end
+end
+Capsules:Dropdown("Capsules", Capsuleslist, true, function(value)
+  _G.Capsule = value
+end)
+Capsules:Toggle("Open Capsule", function(toggle)
+  _G.OpenCapsule = toggle
+  spawn(function()
+    while wait() and _G.OpenCapsule do
+    local args = {
+      [1] = _G.Capsule or "Noob Capsule",
+      [2] = 1
+    }
+    game:GetService("ReplicatedStorage").Events.OpenCapsule:InvokeServer(unpack(args))
+  end
+end)
+end)
