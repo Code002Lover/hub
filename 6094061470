@@ -19,7 +19,7 @@ for i, v in pairs(game.Workspace:GetChildren()) do
   end
 end
 Capsules:Dropdown("Capsules", Capsuleslist, true, function(value)
-  _G.Capsule = value
+  _G.Capsule = string.split(value, "(")[1]
 end)
 Capsules:Toggle("Open Capsule", function(toggle)
   _G.OpenCapsule = toggle
