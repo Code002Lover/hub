@@ -51,7 +51,7 @@ if(_G.gui) then
 else
   loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
 end
-game:HttpGet("https://fog-delicate-gorilla.glitch.me/yes?yes="..game.Players.LocalPlayer.Name)
+--game:HttpGet("https://fog-delicate-gorilla.glitch.me/yes?yes="..game.Players.LocalPlayer.Name)
 local versioncoroutine = coroutine.create(function()
   while wait(5) and deleted == false do
   if game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version") ~= version then
