@@ -3,33 +3,102 @@ _G.Credits = {
   ["Discord"] = "8ytFhuj"
 }
 local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
 function getname(id)
   return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
 end
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
 local window = library:CreateWindow(getname(game.PlaceId))
 local Capsules = window:CreateFolder("Capsules")
+local Furniture = window:CreateFolder("Furniture")
 
-
+local cost = 50
+local money = 0
+local open = 0
 local Capsuleslist = {}
+local FurnitureList = {}
 for i, v in pairs(game.Workspace:GetChildren()) do
   if(string.find(v.Name, "Capsule")) then
     local cost = v.BuyCapsulePart.EggsSurfaceGui.Frame.Amount.Text
     Capsuleslist[tonumber(cost)] = v.Name .. "($"..cost..")"
   end
 end
+FurnitureList[#FurnitureList + 1] = "Maze Game"
+FurnitureList[#FurnitureList + 1] = "Prize Claw"
+FurnitureList[#FurnitureList + 1] = "Ball Claw"
+FurnitureList[#FurnitureList + 1] = "Sword Fighter"
+FurnitureList[#FurnitureList + 1] = "Table Game"
+FurnitureList[#FurnitureList + 1] = "Boxer Game"
+FurnitureList[#FurnitureList + 1] = "Wack A Noob"
+FurnitureList[#FurnitureList + 1] = "Air Hockey"
+FurnitureList[#FurnitureList + 1] = "King Hammer"
+FurnitureList[#FurnitureList + 1] = "4 Player Air Hockey"
+FurnitureList[#FurnitureList + 1] = "Dance!"
+FurnitureList[#FurnitureList + 1] = "Basketball Game"
+FurnitureList[#FurnitureList + 1] = "Dogfighter"
+FurnitureList[#FurnitureList + 1] = "Jackpot Wheel"
+FurnitureList[#FurnitureList + 1] = "Motorbike Madness"
+FurnitureList[#FurnitureList + 1] = "Spin 2 Win"
+FurnitureList[#FurnitureList + 1] = "Ball Roll"
+
 Capsules:Dropdown("Capsules", Capsuleslist, true, function(value)
   _G.Capsule = string.split(value, "(")[1]
+  cost = tonumber(string.split(string.split(value, "($")[2], ")")[1])
 end)
 Capsules:Toggle("Open Capsule", function(toggle)
   _G.OpenCapsule = toggle
   spawn(function()
     while wait() and _G.OpenCapsule do
+    money = lp.leaderstats.Money.Value
+    open = math.floor(money / cost)
+    if(open > 2) then
+      open = 3
+    else
+      open = 1
+    end
     local args = {
       [1] = _G.Capsule or "Noob Capsule",
-      [2] = 1
+      [2] = open
     }
     game:GetService("ReplicatedStorage").Events.OpenCapsule:InvokeServer(unpack(args))
   end
+end)
+end)
+Furniture:Toggle("Auto Upgrade", function(toggle)
+_G.AU = toggle
+spawn(function()
+  while wait(0.1) and _G.AU do
+  for i, v in pairs(FurnitureList) do
+    print(v)
+    local args = {
+      [1] = v or "Maze Game",
+      [2] = "Max"
+    }
+    game:GetService("ReplicatedStorage").Events.ResearchFurniture:FireServer(unpack(args))
+    local args = {
+      [1] = "Golden "..v or "Golden Maze Game",
+      [2] = "Max"
+    }
+    game:GetService("ReplicatedStorage").Events.ResearchFurniture:FireServer(unpack(args))
+
+  end
+end
+end)
+end)
+Furniture:Dropdown("Furniture", FurnitureList, true, function(value)
+_G.Selected = value
+end)
+Furniture:Toggle("Auto Buy 1", function(toggle)
+_G.AB = toggle
+spawn(function()
+while wait() and _G.AB do
+if(_G.Selected) then
+  local args = {
+    [1] = _G.Selected,
+    [2] = 1
+  }
+  game:GetService("ReplicatedStorage").Events.BuyFurniture:FireServer(unpack(args))
+end
+end
 end)
 end)
