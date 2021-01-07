@@ -16,30 +16,32 @@ local cost = 50
 local money = 0
 local open = 0
 local Capsuleslist = {}
-local FurnitureList = {}
+local FurnitureList = {
+  "Maze Game",
+  "Prize Claw",
+  "Ball Claw",
+  "Sword Fighter",
+  "Table Game",
+  "Boxer Game",
+  "Wack A Noob",
+  "Air Hockey",
+  "King Hammer",
+  "4 Player Air Hockey",
+  "Dance!",
+  "Basketball Game",
+  "Dogfighter",
+  "Jackpot Wheel",
+  "Motorbike Madness",
+  "Spin 2 Win",
+  "Ball Roll",
+}
 for i, v in pairs(game.Workspace:GetChildren()) do
   if(string.find(v.Name, "Capsule")) then
     local cost = v.BuyCapsulePart.EggsSurfaceGui.Frame.Amount.Text
     Capsuleslist[tonumber(cost)] = v.Name .. "($"..cost..")"
   end
 end
-FurnitureList[#FurnitureList + 1] = "Maze Game"
-FurnitureList[#FurnitureList + 1] = "Prize Claw"
-FurnitureList[#FurnitureList + 1] = "Ball Claw"
-FurnitureList[#FurnitureList + 1] = "Sword Fighter"
-FurnitureList[#FurnitureList + 1] = "Table Game"
-FurnitureList[#FurnitureList + 1] = "Boxer Game"
-FurnitureList[#FurnitureList + 1] = "Wack A Noob"
-FurnitureList[#FurnitureList + 1] = "Air Hockey"
-FurnitureList[#FurnitureList + 1] = "King Hammer"
-FurnitureList[#FurnitureList + 1] = "4 Player Air Hockey"
-FurnitureList[#FurnitureList + 1] = "Dance!"
-FurnitureList[#FurnitureList + 1] = "Basketball Game"
-FurnitureList[#FurnitureList + 1] = "Dogfighter"
-FurnitureList[#FurnitureList + 1] = "Jackpot Wheel"
-FurnitureList[#FurnitureList + 1] = "Motorbike Madness"
-FurnitureList[#FurnitureList + 1] = "Spin 2 Win"
-FurnitureList[#FurnitureList + 1] = "Ball Roll"
+
 
 Capsules:Dropdown("Capsules", Capsuleslist, true, function(value)
   _G.Capsule = string.split(value, "(")[1]
