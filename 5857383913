@@ -1,0 +1,88 @@
+_G.Credits = {
+  "Created by Code002Lover",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local main = window:CreateFolder("Main")
+
+
+function cashout()
+local args = {
+    [1] = "CashOut"
+}
+game:GetService("ReplicatedStorage").Signals.ActivateEssentials:FireServer(unpack(args))
+end
+
+
+function buyworker()
+local args = {
+    [1] = "Workers"
+}
+game:GetService("ReplicatedStorage").Signals.ActivateEssentials:FireServer(unpack(args))
+end
+
+function buyspeed()
+local args = {
+    [1] = "Speed"
+}
+game:GetService("ReplicatedStorage").Signals.ActivateEssentials:FireServer(unpack(args))
+end
+
+function buystrength()
+  local args = {
+      [1] = "Strength"
+  }
+  game:GetService("ReplicatedStorage").Signals.ActivateEssentials:FireServer(unpack(args))
+end
+
+main:Button("CashOut",cashout)
+main:Button("buy worker",buyworker)
+main:Button("buy speed",buyspeed)
+main:Button("buy strength",buystrength)
+
+main:Toggle("Auto CashOut",function(toggle)
+_G.ca = toggle
+spawn(function()
+while wait() and _G.ca do
+cashout()
+end
+end)
+end)
+main:Toggle("Auto buy Workers",function(toggle)
+_G.bw = toggle
+spawn(function()
+while wait() and _G.bw do
+buyworker()
+end
+end)
+end)
+main:Toggle("Auto buy speed",function(toggle)
+_G.bs = toggle
+spawn(function()
+while wait() and _G.bs do
+buyspeed()
+end
+end)
+end)
+main:Toggle("Auto buy strength",function(toggle)
+_G.bus = toggle
+spawn(function()
+while wait() and _G.bus do
+buystrength()
+end
+end)
+end)
+main:Toggle("Auto collect coins",function(toggle)
+  _G.ac = toggle
+  while wait() and _G.ac do
+    for i,v in pairs(game.Workspace.Plots["Plot_"..game.Players.LocalPlayer.Name].Coins:GetChildren()) do
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+      wait()
+    end
+  end
+end)
