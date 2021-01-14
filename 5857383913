@@ -9,7 +9,8 @@ end
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
 local window = library:CreateWindow(getname(game.PlaceId))
 local main = window:CreateFolder("Main")
-
+local plot = game.Workspace.Plots["Plot_"..game.Players.LocalPlayer.Name]
+local Essentials = plot.Essentials
 
 function cashout()
 local args = {
@@ -49,7 +50,10 @@ main:Toggle("Auto CashOut",function(toggle)
 _G.ca = toggle
 spawn(function()
 while wait() and _G.ca do
+if(Essentials.CashOut.BillboardGui.BillboardFrame.Coins.Text ~= "0") then
 cashout()
+wait(0.1)
+end
 end
 end)
 end)
@@ -80,9 +84,24 @@ end)
 main:Toggle("Auto collect coins",function(toggle)
   _G.ac = toggle
   while wait() and _G.ac do
-    for i,v in pairs(game.Workspace.Plots["Plot_"..game.Players.LocalPlayer.Name].Coins:GetChildren()) do
+    if(#plot.Coins:GetChildren() ~= 0) then
+      oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    for i,v in pairs(plot.Coins:GetChildren()) do
       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
       wait()
     end
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
   end
+  end
+end)
+if(_G.MessageConnection) then
+  _G.MessageConnection:Disconnect()
+end
+_G.MessageConnection = game.Players.LocalPlayer.PlayerGui.Messages.ChildAdded:Connect(function(what)
+if(_G.TM) then
+  what.Visible = false
+end
+end)
+main:Toggle("Toggle Messages",function(toggle)
+_G.TM = toggle
 end)
