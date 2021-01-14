@@ -1,7 +1,6 @@
 
 local games = {
   [5306244457] = "https://raw.githubusercontent.com/Mystikfluu/clicking_masters/master/Clicking_masters_obfuscated.lua",
-  --[4788059999] = "https://raw.githubusercontent.com/Mystikfluu/work_at_a_trampoline_park/master/script.lua",
   [4905407080] = "https://raw.githubusercontent.com/Mystikfluu/4905407080/master/4905407080",
   [5168132926] = "https://raw.githubusercontent.com/Mystikfluu/5168132926/master/5168132926",
   [5420697005] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/5420697005",
@@ -53,7 +52,6 @@ if(_G.gui) then
 else
   loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
 end
---game:HttpGet("https://fog-delicate-gorilla.glitch.me/yes?yes="..game.Players.LocalPlayer.Name)
 local versioncoroutine = coroutine.create(function()
   while wait(5) and deleted == false do
   if game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version") ~= version then
