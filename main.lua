@@ -1,7 +1,7 @@
 
 local games = {
   [5306244457] = "https://raw.githubusercontent.com/Mystikfluu/clicking_masters/master/Clicking_masters_obfuscated.lua",
-  [4788059999] = "https://raw.githubusercontent.com/Mystikfluu/work_at_a_trampoline_park/master/script.lua",
+  --[4788059999] = "https://raw.githubusercontent.com/Mystikfluu/work_at_a_trampoline_park/master/script.lua",
   [4905407080] = "https://raw.githubusercontent.com/Mystikfluu/4905407080/master/4905407080",
   [5168132926] = "https://raw.githubusercontent.com/Mystikfluu/5168132926/master/5168132926",
   [5420697005] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/5420697005",
