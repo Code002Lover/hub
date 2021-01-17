@@ -10,10 +10,29 @@ end
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
 local window = library:CreateWindow(getname(game.PlaceId))
 local Main = window:CreateFolder("Main")
-
+Main:Button("Kill all",function()
+  tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+  remote = tool.shotEvent
+  for i,v in pairs(game.workspace.guaiwus:GetChildren()) do
+    spawn(function()
+    local time = tick()
+  local args = {
+      [1] = "takeDamage",
+      [2] = {
+          ["target"] = v
+      }
+  }
+  while v.Humanoid.Health > 0 and tick() - time <= 1 and v and v:FindFirstChildOfClass("Humanoid") and v.Parent do
+  for i=0,10 do
+  remote:FireServer(unpack(args))
+end
+wait()
+end
+end)
+  end
+end)
 Main:Toggle("Auto kill all Zombies",function(toggle)
 _G.kill = toggle
-
 while _G.kill and wait() do
 tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
 remote = tool.shotEvent
@@ -29,6 +48,33 @@ remote:FireServer(unpack(args))
 end
 end
 end)
+
+Main:Toggle("Kill Aura",function(toggle)
+_G.KA = toggle
+while wait() and _G.KA do
+  tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+  remote = tool.shotEvent
+  for i,v in pairs(game.workspace.guaiwus:GetChildren()) do
+    local dis = (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    if(dis <= 30) then
+  local args = {
+      [1] = "takeDamage",
+      [2] = {
+          ["target"] = v
+      }
+  }
+
+  remote:FireServer(unpack(args))
+end
+  end
+end
+end)
+
+Main:Box("Speed","int",function(value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value or 16
+end)
+
+
 Main:Button("Add a lot of coins & exp",function()
   loadstring([[
   local module = require(game.Players.LocalPlayer.PlayerGui.PlayerDataStoreLocal)
