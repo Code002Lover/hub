@@ -29,3 +29,10 @@ remote:FireServer(unpack(args))
 end
 end
 end)
+Main:Button("Add a lot of coins & exp",function()
+  local module = require(game.Players.LocalPlayer.PlayerGui.PlayerDataStoreLocal)
+  module.addMoney(9e9,9e9)
+  for i=0,1000 do
+  module.addExp(1)
+  end
+end)
