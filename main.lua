@@ -10,11 +10,11 @@ local games = {
   [4543144283] = "https://raw.githubusercontent.com/Mystikfluu/4543144283/main/4543144283",
   [5603696999] = "https://raw.githubusercontent.com/Mystikfluu/5603696999/main/5603696999",
   [5922843670] = "https://raw.githubusercontent.com/Mystikfluu/hs3/main/hatchingsimulator3.lua",
-  [1240426880] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/HouseTycoon.lua",
   [6094061470] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/6094061470",
   [1345139196] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/1345139196",
   [5857383913] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/5857383913",
   [2248408710] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/2248408710",
+  [6098179381] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/6098179381",
 }
 local deleted = false
 local version = game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version")
