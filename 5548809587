@@ -1,0 +1,35 @@
+_G.Credits = {
+  "Created by Code002Lover",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local Main = window:CreateFolder("Main")
+local CP = game.Workspace.CenterPieces:GetChildren()
+local TPs = {}
+for i,v in pairs(CP) do
+  TPs[i] = v.Name
+end
+Main:Dropdown("Teleport",TPs,true,function(value)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.CenterPieces[value].CFrame
+end)
+Main:Button("Collect all bananas",function()
+  for i,v in pairs(workspace.Bananas:GetChildren()) do
+  local args = {
+      [1] = v
+  }
+
+  game:GetService("ReplicatedStorage").HookAutoEvent:FireServer(unpack(args))
+  end
+end)
+Main:Button("Get 1mil",function()
+  local args = {
+      [1] = -1000000
+  }
+  game:GetService("ReplicatedStorage").SetPrice:FireServer(unpack(args))
+  game:GetService("ReplicatedStorage").ClickForEggs:FireServer()
+end)
