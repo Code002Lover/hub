@@ -15,7 +15,7 @@ for i,v in pairs(CP) do
   TPs[i] = v.Name
 end
 Main:Dropdown("Teleport",TPs,true,function(value)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.CenterPieces[value].CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.CenterPieces[value].CFrame + Vector3.new(0,5,0)
 end)
 Main:Button("Collect all bananas",function()
   for i,v in pairs(workspace.Bananas:GetChildren()) do
