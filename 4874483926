@@ -1,5 +1,5 @@
 _G.Credits = {
-  "Created by Code002Lover and Ente-Sama",
+  "Created by Code002Lover",
   ["Discord"] = "8ytFhuj"
 }
 local marketplaceService = game:GetService("MarketplaceService")
