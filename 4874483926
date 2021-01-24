@@ -1,0 +1,43 @@
+_G.Credits = {
+  "Created by Code002Lover and Ente-Sama",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local Main = window:CreateFolder("Main")
+
+
+Main:Toggle("Auto collect bubbles",function(toggle)
+_G.AC = toggle
+while wait() and _G.AC do
+  for i,v in pairs(game.Workspace:GetChildren()) do
+      if(v.Name == "Bubble") then
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v,0)
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v,1)
+            --game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+      end
+      if(i%100 == 0) then
+        wait()
+      end
+  end
+end
+end)
+
+
+Main:Toggle("Auto Rebirth",function(toggle)
+_G.AR = toggle
+while wait() and _G.AR do
+game:GetService("ReplicatedStorage").Remotes.Rebirth:InvokeServer()
+end
+end)
+
+Main:Toggle("Auto Wash hands",function(toggle)
+_G.AW = toggle
+while wait() and _G.AW do
+game:GetService("ReplicatedStorage").Remotes.Wash:FireServer()
+end
+end)
