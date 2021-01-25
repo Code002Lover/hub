@@ -1,3 +1,7 @@
+
+if(_G.GUI == nil) then
+  _G.GUI = true
+end
 if(_G.v == nil) then
     _G.v = 0
 end
@@ -10,6 +14,26 @@ local Colorneeded
 local nearestpart
 local distance = 9e9
 local lastcolor = "ABCDEFG"
+
+if(game.CoreGui:FindFirstChild("GUI")) then
+  game.CoreGui.GUI:Destroy()
+end
+local SG = Instance.new("ScreenGui",game.CoreGui)
+SG.Name = "GUI"
+local Label = Instance.new("TextLabel",SG)
+Label.BackgroundTransparency = 1
+Label.Position = UDim2.new(0.41,0,0.16,0,0)
+Label.TextScaled = true
+Label.Size = UDim2.new(0.2,0,0.1,0)
+Label.TextColor3 = Color3.fromRGB(0,0,0)
+Label.TextStrokeColor3 = Color3.fromRGB(255,255,255)
+Label.TextStrokeTransparency = 0
+SG.Enabled = _G.GUI
+
+local timer = false
+local timestarted = tick()
+
+
 spawn(function()
 local speed = 16
 while wait() and v == _G.v do
@@ -36,6 +60,11 @@ while wait() and v == _G.v do
     end
     if(game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
       if(game.Players.LocalPlayer.Team.Name == "Dancers") then
+        if(timer == false) then
+          timestarted = tick()
+          timer = true
+        end
+        Label.Text = "Time Alive: " .. math.floor(tick() - timestarted)
         if(distance == 9e9) then
           game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
         else
@@ -47,6 +76,8 @@ while wait() and v == _G.v do
         end
       else
         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+        Label.Text = "Not alive atm"
+        timer = false
       end
     end
 end
