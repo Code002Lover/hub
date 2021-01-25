@@ -1,0 +1,54 @@
+if(_G.v == nil) then
+    _G.v = 0
+end
+_G.v = _G.v + 1
+local v = _G.v
+local Blockgroup = game.Workspace:FindFirstChildOfClass("Model")
+if(Blockgroup:FindFirstChild("Block1")) then
+Blockgroup.Name = "Blockgroup"
+local Colorneeded
+local nearestpart
+local distance = 9e9
+local lastcolor = "ABCDEFG"
+spawn(function()
+local speed = 16
+while wait() and v == _G.v do
+    Colorneeded = game.Players.LocalPlayer.PlayerGui.inGameGui.Frame.CurrentColor.ColorName.Text
+    distance = 9e9
+    lastcolor = Colorneeded
+    for i,v in pairs(Blockgroup:GetChildren()) do
+        if(v.ColorName.Value == Colorneeded) then
+            curdistance = math.floor((v.Part.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude)
+            if(curdistance < distance) then
+                nearestpart = v.Part
+                distance = curdistance
+            end
+        end
+    end
+
+    local Time = tonumber(game:GetService("Players").LocalPlayer.PlayerGui.inGameGui.Frame.Timer.Time.Text)
+    speed = distance/Time + 2
+    if(speed > 30) then
+      speed = 30
+    end
+    if(speed < 11) then
+      speed = 11
+    end
+    if(game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
+      if(game.Players.LocalPlayer.Team.Name == "Dancers") then
+        if(distance == 9e9) then
+          game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+        else
+          game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+        end
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speed
+        if(nearestpart) then
+          game.Players.LocalPlayer.Character.Humanoid:MoveTo(nearestpart.Position + Vector3.new(0,3,0))
+        end
+      else
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+      end
+    end
+end
+end)
+end
