@@ -50,5 +50,5 @@ places = {
 }
 
 main:Dropdown("Teleport",places,true,function(where)
-  lp.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Spawns[where].CFrame
+  lp.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").TownLocations[where].CFrame
 end)
