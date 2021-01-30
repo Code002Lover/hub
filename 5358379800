@@ -1,0 +1,15 @@
+for i,v in pairs(game.Workspace:GetChildren()) do
+if(v.name == "Insurgent") then
+local args = {
+    [1] = v.Humanoid,
+    [2] = v.HumanoidRootPart,
+    [3] = v.Humanoid.Health,
+    [4] = Vector3.new(0.15912270545959, 0.11830087006092, 0.98014533519745),
+    [5] = 0,
+    [6] = 0,
+    [7] = false
+}
+
+game:GetService("Players").LocalPlayer.Character.AK47.GunScript_Server.InflictTarget:FireServer(unpack(args))
+end
+end
