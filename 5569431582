@@ -41,6 +41,9 @@ _G.ACB = toggle
 while wait() and _G.ACB do
 for i,v in pairs(game:GetService("Workspace").FoodObjects:GetChildren()) do
   if(_G.ACB and v) then
+    if(lp.Character.PrimaryPart == nil) then
+       lp.Character.PrimaryPart = lp.Character.HumanoidRootPart
+     end
     lp.Character:SetPrimaryPartCFrame(v.CFrame)
     wait(0.5)
   end
@@ -55,5 +58,8 @@ places = {
 }
 
 main:Dropdown("Teleport",places,true,function(where)
+  if(lp.Character.PrimaryPart == nil) then
+     lp.Character.PrimaryPart = lp.Character.HumanoidRootPart
+   end
   lp.Character:SetPrimaryPartCFrame(game:GetService("Workspace").TownLocations[where].CFrame)
 end)
