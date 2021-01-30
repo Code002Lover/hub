@@ -36,11 +36,16 @@ game:GetService("ReplicatedStorage").Remotes.Attack:FireServer()
   end
 end)
 
-main:Button("Collect all Bubbles",function()
-  for i,v in pairs(game:GetService("Workspace").FoodObjects:GetChildren()) do
-    lp.Character.HumanoidRootPart.CFrame = v.CFrame
+main:Toggle("Auto Collect Bubbles",function(toggle)
+_G.ACB = toggle
+while wait() and _G.ACB do
+for i,v in pairs(game:GetService("Workspace").FoodObjects:GetChildren()) do
+  if(_G.ACB and v) then
+    lp.Character:SetPrimaryPartCFrame(v.CFrame)
     wait(0.5)
   end
+end
+end
 end)
 
 places = {
@@ -50,5 +55,5 @@ places = {
 }
 
 main:Dropdown("Teleport",places,true,function(where)
-  lp.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").TownLocations[where].CFrame
+  lp.Character:SetPrimaryPartCFrame(game:GetService("Workspace").TownLocations[where].CFrame)
 end)
