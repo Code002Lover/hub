@@ -66,6 +66,12 @@ end)
 
 main:Button("Godmode",function()
   if(lp.Character:FindFirstChild("BodyHitbox")) then
+    game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage", {
+      Text = "Godmode does NOT work together with collecting any bubbles!"; --The chat message
+      Color = Color3.fromRGB(255, 0, 0); --Chat message color, defaults to white
+      Font = Enum.Font.SourceSansBold; --Chat message font, defaults to SourceSansBold
+      TextSize = 24 --Text size, defaults to 18
+    });
     lp.Character.BodyHitbox:Destroy()
   end
 end)
