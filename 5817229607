@@ -1,0 +1,74 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+
+--[[
+
+Anti AFK
+
+]]
+
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+_G.Credits = {
+  "Created by Code002Lover & Ente_sama",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local main = window:CreateFolder("Main")
+
+
+main:Toggle("Auto Click",function(toggle)
+  _G.AC = toggle
+  local args = {
+      [1] = game:GetService("Players").LocalPlayer.PlayerGui.MainUI.ClickButton.ClickFireFunction
+  }
+  while wait() and _G.AC do
+    for i=0,_G.CS or 1 do
+      game:GetService("ReplicatedStorage").GameClient.Events.RemoteEvent.PlayerClicked:FireServer(unpack(args))
+    end
+  end
+end)
+
+main:Box("ClickSpeed (per wait())","int",function(value)
+_G.CS = value
+end)
+
+local worlds = {}
+for i,v in pairs(game.Workspace:GetChildren()) do
+  if(v:FindFirstChild("Sell")) then
+    worlds[#worlds+1] = v.Name
+  end
+end
+
+
+
+main:Dropdown("Sell", worlds, true, function(world)
+  _G.SS = world
+end)
+
+
+main:Toggle("Auto Sell",function(toggle)
+_G.AS = toggle
+while wait() and _G.AS do
+  if(_G.SS) then
+    local world = game.Workspace:FindFirstChild(_G.SS)
+    if(world) then
+      firetouchinterest(world.Sell.HIT,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
+      wait()
+      firetouchinterest(world.Sell.HIT,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
+    end
+  end
+end
+end)
