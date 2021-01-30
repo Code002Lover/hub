@@ -63,3 +63,9 @@ main:Dropdown("Teleport",places,true,function(where)
    end
   lp.Character:SetPrimaryPartCFrame(game:GetService("Workspace").TownLocations[where].CFrame)
 end)
+
+main:Button("Godmode",function()
+  if(lp.Character:FindFirstChild("BodyHitbox")) then
+    lp.Character.BodyHitbox:Destroy()
+  end
+end)
