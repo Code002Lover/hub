@@ -75,3 +75,14 @@ main:Button("Godmode",function()
     lp.Character.BodyHitbox:Destroy()
   end
 end)
+
+main:Box("WalkSpeed","int",function(ws)
+  lp.Character.Humanoid.WalkSpeed = ws
+end)
+main:Button("Delete Name",function()
+  if(lp.Character.HumanoidRootPart:FindFirstChild("CustomName")) then
+    local CN = lp.Character.HumanoidRootPart.CustomName
+    CN.Parent = game.Workspace
+    CN:Destroy()
+  end
+end)
