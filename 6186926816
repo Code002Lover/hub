@@ -1,0 +1,104 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+--[[
+
+Anti AFK
+
+]]
+
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+
+
+
+
+
+_G.Credits = {
+  "Created by Code002Lover & Ente_sama",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local main = window:CreateFolder("Main")
+
+
+local click = game:GetService("ReplicatedStorage").Remotes["\226\154\161\240\159\150\177\239\184\143"]
+local rebirth = game:GetService("ReplicatedStorage").Remotes["\226\154\161\239\184\189"]
+local egg = game:GetService("ReplicatedStorage").Remotes["\226\154\161\240\159\165\154"]
+
+main:Toggle("Click",function(toggle)
+  _G.TAP = toggle
+  while wait() and _G.TAP do
+    click:FireServer()
+  end
+end)
+
+main:Toggle("Collect Diamonds",function(toggle)
+_G.CD = toggle
+while wait() and _G.CD do
+for i,v in pairs(game:GetService("Workspace").Coletaveis:GetChildren()) do
+v.CFrame = lp.Character.HumanoidRootPart.CFrame
+end
+end
+end)
+function rebirth(num)
+local rebirthargs = {
+    [1] = tostring(num) or "1"
+}
+
+
+rebirth:FireServer(unpack(args))
+end
+
+function hatch(eggarg)
+local args = {
+    [1] = eggarg or workspace.PromptEgg.Common,
+    [2] = "E"
+}
+
+egg:InvokeServer(unpack(args))
+end
+
+local eggs = {}
+  for i,v in pairs(workspace.PromptEgg:GetChildren()) do
+  eggs[#eggs+1] = v.Name
+end
+
+main:Dropdown("Eggs",eggs,true,function(value)
+  _G.Hatch = workspace.PromptEgg[value]
+end)
+
+main:Toggle("Auto Hatch",function(toggle)
+  _G.AH = toggle
+  while wait() and _G.AH do
+    if(_G.Hatch) then
+      hatch(_G.Hatch)
+    end
+  end
+end)
+
+
+main:Button("Claim Daily and Group",function()
+  firetouchinterest(game:GetService("Workspace").Rewards.GroupRewardLobby,lp.Character.HumanoidRootPart,0)
+  wait()
+  firetouchinterest(game:GetService("Workspace").Rewards.GroupRewardLobby,lp.Character.HumanoidRootPart,1)
+  wait()
+  firetouchinterest(game:GetService("Workspace").Rewards.DailyRewardLobby,lp.Character.HumanoidRootPart,0)
+  wait()
+  firetouchinterest(game:GetService("Workspace").Rewards.DailyRewardLobby,lp.Character.HumanoidRootPart,1)
+  wait()
+  firetouchinterest(game:GetService("Workspace").Rewards.DailyRewardSla,lp.Character.HumanoidRootPart,0)
+  wait()
+  firetouchinterest(game:GetService("Workspace").Rewards.DailyRewardSla,lp.Character.HumanoidRootPart,1)
+end)
