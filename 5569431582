@@ -102,7 +102,8 @@ end)
 chests = {
   "Common",
   "Epic",
-  "Legendary"
+  "Legendary",
+  "Mythic"
 }
 
 main:Dropdown("Chest",chests,true,function(chest)
