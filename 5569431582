@@ -79,3 +79,38 @@ end)
 main:Box("WalkSpeed","int",function(ws)
   lp.Character.Humanoid.WalkSpeed = ws
 end)
+
+main:Toggle("Auto TP Chests",function(toggle)
+  _G.ATPC = toggle
+  while wait() and _G.ATPC do
+    for i,v in pairs(game:GetService("Workspace").Chests:GetChildren()) do
+      if(v.Name == _G.Chest) then
+        if(v:FindFirstChild("ChestHitbox") and _G.ATPC) then
+          if(lp.Character.PrimaryPart == nil) then
+             lp.Character.PrimaryPart = lp.Character.HumanoidRootPart
+           end
+          lp.Character:SetPrimaryPartCFrame(v.ChestHitbox.CFrame)
+        end
+        repeat
+          game:GetService("RunService").RenderStepped:Wait()
+        until v == nil or v.Parent == nil or v:FindFirstChild("ChestHitbox") == nil or _G.ATPC == false
+      end
+    end
+  end
+end)
+
+chests = {
+  "Common",
+  "Epic",
+  "Legendary"
+}
+
+main:Dropdown("Chest",chests,true,function(chest)
+  _G.Chest = chest
+end)
+
+main:Button("Invisible",function()
+if(lp.Character:FindFirstChild("Main")) then
+  lp.Character.Main:Destroy()
+end
+end)
