@@ -24,6 +24,7 @@ local games = {
   [5358379800] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/5358379800",
   [5569431582] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/5569431582",
   [6186926816] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/6186926816",
+  [5977347869] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/5977347869",
 }
 local deleted = false
 local version = game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version")
