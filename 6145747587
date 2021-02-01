@@ -1,0 +1,41 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+
+--[[
+
+Anti AFK
+
+]]
+
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+_G.Credits = {
+  "Created by Ente_sama & Code002Lover ",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local main = window:CreateFolder("Main")
+
+
+main:Toggle("Auto Sleep click",function(toggle)
+  _G.ASC = toggle
+  while wait() and _G.ASC do
+    local args = {
+        [1] = game:GetService("Players").LocalPlayer
+    }
+
+    game:GetService("ReplicatedStorage").Remotes.Clicked:FireServer(unpack(args))
+  end
+end)
