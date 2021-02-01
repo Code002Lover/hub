@@ -1,0 +1,66 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+--[[
+
+Anti AFK
+
+]]
+
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+
+_G.Credits = {
+  "Created by Code002Lover & Ente_sama",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local main = window:CreateFolder("Main")
+
+
+main:Toggle("Auto Kill",function(toggle)
+_G.Kill = toggle
+while wait() and _G.Kill do
+  sdiff = 9e9
+  for i,v in pairs(game.Workspace.Game.Zombies:GetChildren()) do
+    if(v:FindFirstChild("Head") and v:FindFirstChild("Zombie")) then
+      torso = v.Head
+      pos = torso.Position
+      local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+      diff = (hrp.Position - pos).Magnitude
+      if(diff <= sdiff and v.Zombie.Health > 0) then
+        sdiff = diff
+        CFR = CFrame.new(torso.Position, Vector3.new(pos.X, hrp.Position.Y, pos.Z))
+      end
+    end
+  end
+  args = {
+      [1] = "Fire",
+      [2] = CFR,
+      [3] = false
+  }
+  char = game:GetService("Players").LocalPlayer.Character
+  tool = char:FindFirstChildOfClass("Tool")
+  if(tool and #game.Workspace.Game.Zombies:GetChildren() ~= 0) then
+    tool.Connection:FireServer(unpack(args))
+    if(tool.Configuration.AmmoLeft.Value == 1) then
+      local args = {
+          [1] = "Reload",
+          [2] = CFR,
+      }
+      tool.Connection:FireServer(unpack(args))
+    end
+  end
+end
+end)
