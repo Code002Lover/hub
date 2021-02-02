@@ -1,0 +1,52 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+
+_G.Credits = {
+  "Created by Ente_sama (Rewrite)",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local main = window:CreateFolder("Main")
+
+main:Toggle("Auto Click",function(toggle)
+  _G.AC = toggle
+  while wait() and _G.AC do
+    if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("sword") then
+      lp.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.sword)
+    end
+    game:GetService("Players").LocalPlayer.Character.sword.Handle.up.RemoteEvent:FireServer()
+    wait()
+  end
+end)
+
+main:Toggle("Instant Heal",function(toggle)
+  _G.IH = toggle
+  while wait() and _G.IH do
+    game.ReplicatedStorage.Heal:FireServer()
+  end
+end)
+
+main:Box("WalkSpeed","int",function(ws)
+  lp.Character.Humanoid.WalkSpeed = ws
+end)
+
+main:Box("JumpPower","int",function(jp)
+  lp.Character.Humanoid.JumpPower = jp
+end)
+
+main:Button("Safe Spot",function()
+  lp.Character.HumanoidRootPart.CFrame = CFrame.new(-3.23065352, 47.2304649, -695.922974, 0.999559224, 9.27302062e-06, -0.0296933353, -1.24633825e-05, 1, -0.000107255728, 0.0296933353, 0.000107578453, 0.999559224)
+end)
