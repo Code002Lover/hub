@@ -51,17 +51,24 @@ end
 local gamefound = getlink() ~= nil
 
 
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Name = Instance.new("TextLabel")
 local Text = Instance.new("TextLabel")
 local UICorner = Instance.new("UICorner")
 
+--Properties:
+
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(91, 30, 62)
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Frame.BorderSizePixel = 0
 Frame.Position = UDim2.new(0.24232018, 0, 0.353519887, 0)
 Frame.Size = UDim2.new(0.5, 0, 0.300000012, 0)
@@ -75,9 +82,10 @@ Name.Position = UDim2.new(0.062602967, 0, 0.221593514, 0)
 Name.Size = UDim2.new(0.902800679, 0, 0.528524399, 0)
 Name.Font = Enum.Font.Roboto
 Name.Text = "ZeroTwo Hub"
-Name.TextColor3 = Color3.fromRGB(255, 0, 0)
+Name.TextColor3 = Color3.fromRGB(255, 255, 255)
 Name.TextScaled = true
 Name.TextSize = 14.000
+Name.TextStrokeColor3 = Color3.fromRGB(255, 0, 230)
 Name.TextStrokeTransparency = 0.000
 Name.TextWrapped = true
 
@@ -90,7 +98,7 @@ Text.Position = UDim2.new(0.169686988, 0, 0.684111357, 0)
 Text.Size = UDim2.new(0.660626054, 0, 0.249882102, 0)
 Text.Font = Enum.Font.Roboto
 Text.Text = "Loading"
-Text.TextColor3 = Color3.fromRGB(255, 0, 0)
+Text.TextColor3 = Color3.fromRGB(255, 255, 255)
 Text.TextScaled = true
 Text.TextSize = 14.000
 Text.TextStrokeTransparency = 0.000
@@ -99,33 +107,36 @@ Text.TextWrapped = true
 UICorner.CornerRadius = UDim.new(0, 32)
 UICorner.Parent = Frame
 
-local script = Instance.new('LocalScript', Text)
+	local script = Instance.new('LocalScript', Text)
 
-script.Parent.Parent.Position = UDim2.new(2,0,2,0)
+	script.Parent.Parent.Position = UDim2.new(2,0,2,0)
 	
-script.Parent.Parent:TweenPosition(UDim2.new(0.242, 0,0.354, 0),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.25)
+	script.Parent.Parent:TweenPosition(UDim2.new(0.242, 0,0.354, 0),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.5)
 	
-wait(0.25)	
-	
-
-script.Parent.Text = "Finding game"
-for i=1,3 do
-	script.Parent.Text = script.Parent.Text .. "."
-	wait(0.3)
-end
-if(gamefound) then
-	script.Parent.Text = "Starting!"
-	wait(0.3)
-
-	script.Parent.Parent:TweenPosition(UDim2.new(2, 0,2, 0),Enum.EasingDirection.Out,Enum.EasingStyle.Linear,0.25)
 	wait(0.25)
-else
-	script.Parent.Text = "Game not found!"
-	wait(0.3)
+	
+	
+	script.Parent.Text = "Finding game"
+	for i=1,3 do
+		script.Parent.Text = script.Parent.Text .. "."
+		wait(0.3)
+	end
+	if(gamefound) then
+		script.Parent.Text = "Starting!"
+		wait(0.3)
+	
+		script.Parent.Parent:TweenPosition(UDim2.new(2, 0,2, 0),Enum.EasingDirection.Out,Enum.EasingStyle.Linear,0.5)
+		wait(0.25)
+	else
+		script.Parent.Text = "Game not found!"
+		wait(0.3)
+	
+		script.Parent.Parent:TweenPosition(UDim2.new(2, 0,2, 0),Enum.EasingDirection.Out,Enum.EasingStyle.Linear,0.5)
+		return false
+	end
 
-	script.Parent.Parent:TweenPosition(UDim2.new(2, 0,2, 0),Enum.EasingDirection.Out,Enum.EasingStyle.Linear,0.25)
-	return false
-end
+
+
 
 if(gamefound) then
 loadstring(game:HttpGet((getlink())))()
