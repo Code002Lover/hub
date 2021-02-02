@@ -46,31 +46,87 @@ end
 function getlink(id2)
   id2 = id2 or game.PlaceId
   if(id2 == nil) then id2 = game.PlaceId end
-  return games[id2] or othermethod() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua'
+  return games[id2] or othermethod() or nil
 end
-function getname(id)
-  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
-end
-if(_G.gui) then
-  local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
-  local window = library:CreateWindow("A hub")
-  local frame = window:CreateFolder("games")
-  for i, v in pairs(games) do
-    frame:Button(getname(i), function()
-      deleted = window:Destroy()
-      loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
-    end)
-  end
-else
-  loadstring(game:HttpGet((getlink() or 'https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
-end
-local versioncoroutine = coroutine.create(function()
-  while wait(5) and deleted == false do
-  if game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/hub/master/version") ~= version then
-    loadstring(game:HttpGet(('https://github.com/Mystikfluu/hub/raw/master/main.lua')))()
-    coroutine.yield()
-  end
-end
-end)
+local gamefound = getlink() ~= nil
 
-coroutine.resume(versioncoroutine)
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Name = Instance.new("TextLabel")
+local Text = Instance.new("TextLabel")
+local UICorner = Instance.new("UICorner")
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(91, 30, 62)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.24232018, 0, 0.353519887, 0)
+Frame.Size = UDim2.new(0.5, 0, 0.300000012, 0)
+
+Name.Name = "Name"
+Name.Parent = Frame
+Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Name.BackgroundTransparency = 1.000
+Name.BorderSizePixel = 0
+Name.Position = UDim2.new(0.062602967, 0, 0.221593514, 0)
+Name.Size = UDim2.new(0.902800679, 0, 0.528524399, 0)
+Name.Font = Enum.Font.Roboto
+Name.Text = "ZeroTwo Hub"
+Name.TextColor3 = Color3.fromRGB(255, 0, 0)
+Name.TextScaled = true
+Name.TextSize = 14.000
+Name.TextStrokeTransparency = 0.000
+Name.TextWrapped = true
+
+Text.Name = "Text"
+Text.Parent = Frame
+Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Text.BackgroundTransparency = 1.000
+Text.BorderSizePixel = 0
+Text.Position = UDim2.new(0.169686988, 0, 0.684111357, 0)
+Text.Size = UDim2.new(0.660626054, 0, 0.249882102, 0)
+Text.Font = Enum.Font.Roboto
+Text.Text = "Loading"
+Text.TextColor3 = Color3.fromRGB(255, 0, 0)
+Text.TextScaled = true
+Text.TextSize = 14.000
+Text.TextStrokeTransparency = 0.000
+Text.TextWrapped = true
+
+UICorner.CornerRadius = UDim.new(0, 32)
+UICorner.Parent = Frame
+
+local script = Instance.new('LocalScript', Text)
+
+script.Parent.Parent.Position = UDim2.new(2,0,2,0)
+	
+script.Parent.Parent:TweenPosition(UDim2.new(0.242, 0,0.354, 0),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.25)
+	
+wait(0.25)	
+	
+
+script.Parent.Text = "Finding game"
+for i=1,3 do
+	script.Parent.Text = script.Parent.Text .. "."
+	wait(0.3)
+end
+if(gamefound) then
+	script.Parent.Text = "Starting!"
+	wait(0.3)
+
+	script.Parent.Parent:TweenPosition(UDim2.new(2, 0,2, 0),Enum.EasingDirection.Out,Enum.EasingStyle.Linear,0.25)
+	wait(0.25)
+else
+	script.Parent.Text = "Game not found!"
+	wait(0.3)
+
+	script.Parent.Parent:TweenPosition(UDim2.new(2, 0,2, 0),Enum.EasingDirection.Out,Enum.EasingStyle.Linear,0.25)
+	return false
+end
+
+if(gamefound) then
+loadstring(game:HttpGet((getlink())))()
+end
