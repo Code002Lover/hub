@@ -36,7 +36,7 @@ main:Toggle("Auto Click",function(toggle)
   end
 end)
 
-main:Toggle("Auto kill noobs",function(toggle)
+main:Toggle("Auto kill npcs",function(toggle)
   _G.AKN = toggle
   while wait() and _G.AKN do
     for i,v in pairs(workspace.EnemyContainer:GetChildren()) do
