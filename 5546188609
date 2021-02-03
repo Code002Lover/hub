@@ -41,14 +41,12 @@ main:Toggle("Auto kill npcs",function(toggle)
   while wait() and _G.AKN do
     for i,v in pairs(workspace.EnemyContainer:GetChildren()) do
       if(v:FindFirstChild("Humanoid")) then
-        local args = {
-          [1] = v.Humanoid
-        }
-        repeat
-          game:GetService("ReplicatedStorage").DamageEvent:FireServer(unpack(args))
-          game:GetService("ReplicatedStorage").DamageEvent:FireServer(unpack(args))
-          wait()
-        until v:FindFirstChild("Humanoid") == nil or v.Parent == nil or v.Humanoid.Health == 0
+        if(v.Humanoid.Health ~= 0) then
+          repeat
+            game:GetService("ReplicatedStorage").DamageEvent:FireServer(v.Humanoid)
+            wait()
+          until v:FindFirstChild("Humanoid") == nil or v.Parent == nil or v.Humanoid.Health == 0
+        end
       end
     end
   end
