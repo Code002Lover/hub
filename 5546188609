@@ -22,6 +22,7 @@ end
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
 local window = library:CreateWindow(getname(game.PlaceId))
 local main = window:CreateFolder("Main")
+local misc = window:CreateFolder("Misc")
 
 
 main:Toggle("Auto Click",function(toggle)
@@ -32,5 +33,42 @@ main:Toggle("Auto Click",function(toggle)
     }
 
     game:GetService("ReplicatedStorage").ScytheEvent:FireServer(unpack(args))
+  end
+end)
+
+main:Toggle("Auto kill noobs",function(toggle)
+  _G.AKN = toggle
+  while wait() and _G.AKN do
+    for i,v in pairs(workspace.EnemyContainer:GetChildren()) do
+      if(v:FindFirstChild("Humanoid")) then
+        local args = {
+          [1] = v.Humanoid
+        }
+        repeat
+          game:GetService("ReplicatedStorage").DamageEvent:FireServer(unpack(args))
+          game:GetService("ReplicatedStorage").DamageEvent:FireServer(unpack(args))
+          wait()
+        until v:FindFirstChild("Humanoid") == nil or v.Parent == nil or v.Humanoid.Health == 0
+      end
+    end
+  end
+end)
+
+codes = {
+  "followers",
+  "subtocookie",
+  "FREE PET",
+  "Tofuu",
+  "cool",
+  "RussoPlays"
+}
+
+misc:Button("Use Codes",function()
+  for i,v in pairs(codes) do
+    local args = {
+        [1] = v
+    }
+
+    game:GetService("ReplicatedStorage").CodeCheck:InvokeServer(unpack(args))
   end
 end)
