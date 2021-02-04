@@ -28,7 +28,7 @@ local games = {
   [6145747587] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/6145747587",
   [5546188609] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/5546188609",
   [4828705676] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/4828705676",
-	
+  [4702901642] = "https://raw.githubusercontent.com/Mystikfluu/hub/master/4702901642",
 
 }
 local deleted = false
