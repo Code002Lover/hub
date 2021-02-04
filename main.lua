@@ -143,5 +143,6 @@ UICorner.Parent = Frame
 
 
 if(gamefound) then
+_G.hub = true
 loadstring(game:HttpGet((getlink())))()
 end
