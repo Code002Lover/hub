@@ -8,7 +8,7 @@ VirtualUser:CaptureController()
 VirtualUser:ClickButton2(Vector2.new())
 end)
 _G.Credits = {
-  "Created by Ente_sama & Code002Lover",
+  "Created by Ente & Code002Lover",
   ["Discord"] = "8ytFhuj"
 }
 local marketplaceService = game:GetService("MarketplaceService")
@@ -123,5 +123,5 @@ misc:Button("Unlock All Islands",function()
 end)
 
 misc:Button("INF MultiJump",function()
-  game:GetService("ReplicatedStorage").Players.LocalPlayer.Stats.Jumps.Value = 9999999999999
+  game:GetService("ReplicatedStorage").Players[lp.Name].Stats.Jumps.Value = 9999999999999
 end)
