@@ -1,0 +1,191 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+_G.Credits = {
+  "Created by Ente_sama & Code002Lover",
+  ["Discord"] = "8ytFhuj"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local main = window:CreateFolder("Main")
+local open = window:CreateFolder("Open")
+local misc = window:CreateFolder("Misc")
+local blockdrop;
+
+function blockcallback(block)
+  _G.Block = block
+  spawn(function()
+    blocks = {}
+    blocks2 = {}
+    for i,v in pairs(game:GetService("Workspace").Blocks:GetChildren()) do
+      for i2,v2 in pairs(v:GetChildren()) do
+        if(v2:FindFirstChild("Box")) then
+          blocks2[v2.Name] = true
+        end
+      end
+    end
+    for i,v in pairs(blocks2) do
+      blocks[#blocks+1] = i
+    end
+    blockdrop:Update(blocks,true,blockcallback)
+  end)
+end
+
+
+main:Toggle("Auto Farm",function(toggle)
+  blocks = {}
+  blocks2 = {}
+  for i,v in pairs(game:GetService("Workspace").Blocks:GetChildren()) do
+    for i2,v2 in pairs(v:GetChildren()) do
+      if(v2:FindFirstChild("Box")) then
+        blocks2[v2.Name] = true
+      end
+    end
+  end
+  for i,v in pairs(blocks2) do
+    blocks[#blocks+1] = i
+  end
+  blockdrop:Update(blocks,true,blockcallback)
+  _G.AF = toggle
+  while wait() and _G.AF do
+    for i2,v2 in pairs(game:GetService("Workspace").Blocks:GetChildren()) do
+      wait()
+      if(v2:FindFirstChild(_G.Block)) then
+        for i,v in pairs(v2:GetChildren()) do
+          if(v.Name == _G.Block) then
+            if(v:FindFirstChild("Box") and _G.AF) then
+              repeat
+                if(v:FindFirstChild("Box")) then
+                  lp.Character.HumanoidRootPart.CFrame = v.Box.CFrame + Vector3.new(0,v.Box.Size.Y,0)
+                  wait()
+                  local args = {
+                      [1] = v
+                  }
+                  game:GetService("ReplicatedStorage").Events.Mine:FireServer(unpack(args))
+                end
+              until v.Parent == nil or v:FindFirstChild("Box") == nil or v == nil or _G.AF == false
+            end
+          end
+        end
+      end
+    end
+  end
+end)
+blocks = {}
+blocks2 = {}
+for i,v in pairs(game:GetService("Workspace").Blocks:GetChildren()) do
+  for i2,v2 in pairs(v:GetChildren()) do
+    if(v2:FindFirstChild("Box")) then
+      blocks2[v2.Name] = true
+    end
+  end
+end
+for i,v in pairs(blocks2) do
+  blocks[#blocks+1] = i
+end
+--[[
+blocks = {
+  "Grass",
+  "Dirt",
+  "Stone",
+  "Coal",
+  "Copper",
+  "Common Chest",
+  "Silver",
+  "Bronze",
+  "Diamond",
+  "Gold",
+  "Lapis",
+  "Sapphire",
+  "Iron",
+  "Metal Scraps",
+  "Platinum",
+  "Emerald",
+}
+--]]
+
+blockdrop = main:Dropdown("Block",blocks,true,blockcallback)
+
+main:Toggle("Auto Sell",function(toggle)
+  _G.AS = toggle
+  while wait() and _G.AS do
+    firetouchinterest(game:GetService("Workspace").Rings.Sell.Hitbox, lp.Character.HumanoidRootPart, 0)
+    wait()
+    firetouchinterest(game:GetService("Workspace").Rings.Sell.Hitbox, lp.Character.HumanoidRootPart, 1)
+  end
+end)
+
+open:Button("Shop",function()
+  firetouchinterest(game:GetService("Workspace").Rings.Shop.Hitbox, lp.Character.HumanoidRootPart, 0)
+  wait()
+  firetouchinterest(game:GetService("Workspace").Rings.Shop.Hitbox, lp.Character.HumanoidRootPart, 1)
+end)
+
+open:Button("Quests",function()
+  firetouchinterest(game:GetService("Workspace").Rings.Quests.Hitbox, lp.Character.HumanoidRootPart, 0)
+  wait()
+  firetouchinterest(game:GetService("Workspace").Rings.Quests.Hitbox, lp.Character.HumanoidRootPart, 1)
+end)
+
+misc:Button("Claim Daily Reward",function()
+  game:GetService("ReplicatedStorage").Events.Reward:FireServer()
+end)
+
+main:Toggle("Auto Buy Tools",function(toggle)
+  _G.ABT = toggle
+  while wait(3) and _G.ABT do
+    local args = {
+        [1] = "Tools"
+    }
+    game:GetService("ReplicatedStorage").Events["Buy All"]:FireServer(unpack(args))
+  end
+end)
+
+main:Toggle("Auto Buy Backpacks",function(toggle)
+  _G.ABT = toggle
+  while wait(3) and _G.ABT do
+    local args = {
+        [1] = "Backpacks"
+    }
+    game:GetService("ReplicatedStorage").Events["Buy All"]:FireServer(unpack(args))
+  end
+end)
+
+eggs = {
+  "Normal",
+  "Spotted",
+  "Frost",
+  "Royal",
+  "Infernal",
+  "Hero",
+  "Berserker",
+  "Crystal",
+  "Astral",
+  "Cosmic"
+}
+
+main:Dropdown("Egg",eggs,true,function(egg)
+  _G.Egg = egg
+end)
+
+main:Toggle("Auto Buy Eggs",function(toggle)
+  _G.ABE = toggle
+  while wait() and _G.ABE do
+    local args = {
+        [1] = _G.Egg
+    }
+    game:GetService("ReplicatedStorage").Events["Buy Pet"]:FireServer(unpack(args))
+    wait(12)
+  end
+end)
