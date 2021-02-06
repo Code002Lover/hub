@@ -51,6 +51,6 @@ main:Button("Exchange Power to Coins (no cooldown)",function()
   game:GetService("Players").LocalPlayer.PlayerGui.shop.COINFLIPFrame.ExchangePTC.Ex.Script.RemoteEvent:FireServer(unpack(args))
 end)
 
-main:Box("Value","string",function(value)
+main:Box("Exchange Value","string",function(value)
   _G.Value = value
 end)
