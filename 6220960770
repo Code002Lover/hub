@@ -1,0 +1,56 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+
+_G.Credits = {
+  "Created by Ente_sama",
+  ["Discord"] = "vQBYBsvWhW"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
+function getname(id)
+  return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow(getname(game.PlaceId))
+local main = window:CreateFolder("Main")
+
+main:Toggle("Auto Click",function(toggle)
+  _G.AC = toggle
+  _G.Count = _G.Count or 8
+  while wait() and _G.AC do
+    for i,v in pairs(lp.Backpack:GetChildren()) do
+      lp.Character.Humanoid:EquipTool(v)
+    end
+    for i,v in pairs(lp.Character:GetChildren()) do
+      if v:IsA("Tool") and v:FindFirstChild("Handle") then
+        for i=1,_G.Count do
+          v.Handle.up.RemoteEvent:FireServer()
+        end
+      end
+    end
+  end
+end)
+
+main:Box("Click Speed","int",function(value)
+_G.Count = value or 8
+end)
+
+main:Button("Exchange Power to Coins (no cooldown)",function()
+  local args = {
+      [1] = _G.Value
+  }
+  game:GetService("Players").LocalPlayer.PlayerGui.shop.COINFLIPFrame.ExchangePTC.Ex.Script.RemoteEvent:FireServer(unpack(args))
+end)
+
+main:Box("Value","string",function(value)
+  _G.Value = value
+end)
