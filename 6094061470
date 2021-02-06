@@ -11,6 +11,18 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mysti
 local window = library:CreateWindow(getname(game.PlaceId))
 local Capsules = window:CreateFolder("Capsules")
 local Furniture = window:CreateFolder("Furniture")
+local Store = window:CreateFolder("Store")
+
+local StoreModel
+
+for i,v in pairs(game.Workspace.StoreModels:GetChildren()) do
+  if(v.Owner.Value == lp.Name) then
+    StoreModel = v
+  end
+end
+if(StoreModel == nil) then
+  error("No Store Found!")
+end
 
 local cost = 50
 local money = 0
@@ -38,7 +50,10 @@ local FurnitureList = {
 for i, v in pairs(game.Workspace:GetChildren()) do
   if(string.find(v.Name, "Capsule")) then
     local cost = v.BuyCapsulePart.EggsSurfaceGui.Frame.Amount.Text
-    Capsuleslist[tonumber(cost)] = v.Name .. "($"..cost..")"
+    cost = string.gsub(cost,"K","000")
+    if(cost) then
+      Capsuleslist[tonumber(cost)] = v.Name .. "($"..cost..")"
+    end
   end
 end
 
@@ -100,6 +115,29 @@ if(_G.Selected) then
     [2] = 1
   }
   game:GetService("ReplicatedStorage").Events.BuyFurniture:FireServer(unpack(args))
+end
+end
+end)
+end)
+
+
+Store:Toggle("Auto Collect",function(toggle)
+  _G.ACS = toggle
+  spawn(function()
+    while _G.ACS and wait() do
+  for i,v in pairs(StoreModel.Furniture:GetChildren()) do
+    if(v.CoinStorage.Value ~= 0) then
+    lp.Character.HumanoidRootPart.CFrame = v.Model.PrimaryPart.CFrame
+  local args = {
+      [1] = v,
+      [2] = "Collect"
+  }
+
+  game:GetService("ReplicatedStorage").Events.FurnitureInteract:FireServer(unpack(args))
+  lp.Character.HumanoidRootPart.CFrame = v.Model.PrimaryPart.CFrame
+  wait()
+  game:GetService("ReplicatedStorage").Events.FurnitureInteract:FireServer(unpack(args))
+end
 end
 end
 end)
