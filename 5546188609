@@ -70,3 +70,14 @@ misc:Button("Use Codes",function()
     game:GetService("ReplicatedStorage").CodeCheck:InvokeServer(unpack(args))
   end
 end)
+
+main:Toggle("Auto Collect EXP Stars",function(toggle)
+  _G.ACES = toggle
+  while wait() and _G.ACES do
+    for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+      if(string.find(v.Name,"Star") and v:IsA("UnionOperation")) then
+        v.CFrame = lp.Character.HumanoidRootPart.CFrame
+      end
+    end
+  end
+end)
