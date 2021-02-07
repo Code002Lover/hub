@@ -1,0 +1,100 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+  VirtualUser:CaptureController()
+  VirtualUser:ClickButton2(Vector2.new())
+end)
+
+
+
+
+
+_G.Credits = {
+  "Created by Code002Lover & Ente_sama",
+  ["Discord"] = "8ytFhuj"
+}
+
+local lp = game.Players.LocalPlayer
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow("ZeroTwo Hub")
+local main = window:CreateFolder("Main")
+
+local Plot
+repeat
+  for i,v in pairs(workspace.Plots:GetChildren()) do
+    if(v.Owner.Value == lp) then
+      Plot = v
+    end
+  end
+  wait()
+until Plot ~= nil
+
+main:Toggle("Grab Clothing",function(toggle)
+  _G.GC = toggle
+  while wait() and _G.GC do
+    for i,v in pairs(game:GetService("Workspace").Debris.Clothing:GetChildren()) do
+      if(v:IsA("MeshPart")) then
+        local args = {
+            [1] = v
+        }
+        game:GetService("ReplicatedStorage").Events.GrabClothing:FireServer(unpack(args))
+        wait()
+      end
+    end
+  end
+end)
+
+main:Toggle("Load clothing",function(toggle)
+  _G.LC = toggle
+  while wait() and _G.LC do
+    for i,v in pairs(Plot.WashingMachines:GetChildren()) do
+      if(v:FindFirstChild("Config")) then
+        if(not v.Config.Started.Value) then
+          local args = {
+              [1] = v
+          }
+          game:GetService("ReplicatedStorage").Events.LoadWashingMachine:FireServer(unpack(args))
+          wait()
+        end
+      end
+    end
+  end
+end)
+
+main:Toggle("Unload clothing",function(toggle)
+  _G.ULC = toggle
+  while wait() and _G.ULC do
+    for i,v in pairs(Plot.WashingMachines:GetChildren()) do
+      if(v:FindFirstChild("Config")) then
+        if(v.Config.CycleFinished.Value) then
+          local args = {
+              [1] = v
+          }
+          game:GetService("ReplicatedStorage").Events.UnloadWashingMachine:FireServer(unpack(args))
+          wait()
+        end
+      end
+    end
+  end
+end)
+
+main:Toggle("Drop clothes off",function(toggle)
+  _G.DCO = toggle
+  while wait() and _G.DCO do
+    game:GetService("ReplicatedStorage").Events.DropClothesInChute:FireServer()
+  end
+end)
+
+main:Button("Open Shop",function()
+  firetouchinterest(game:GetService("Workspace").ArchysShopEntrance.Open, lp.Character.HumanoidRootPart, 0)
+  wait()
+  firetouchinterest(game:GetService("Workspace").ArchysShopEntrance.Open, lp.Character.HumanoidRootPart, 1)
+end)
+
+main:Button("Plot TP",function()
+  lp.Character.HumanoidRootPart.CFrame = Plot.Base.CFrame + Vector3.new(0,4,0)
+end)
