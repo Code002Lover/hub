@@ -17,7 +17,7 @@ function getname(id)
   return marketplaceService:GetProductInfo(id, Enum.InfoType.Asset).Name
 end
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
-local window = library:CreateWindow(getname(game.PlaceId))
+local window = library:CreateWindow("ZeroTwo Hub")
 local main = window:CreateFolder("Main")
 
 function farm(name)
@@ -67,7 +67,8 @@ main:Toggle("Collect Meat",function(toggle)
     print("Collect meat")
     for i,v in pairs(game.workspace:GetChildren()) do
       if string.find(v.Name, "Meat") and v:FindFirstChild("Main") then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Main.CFrame
+        v.Main.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        wait()
       end
     end
   end
@@ -83,5 +84,14 @@ main:Toggle("Collect Coins",function(toggle)
       }
       game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
     end
+  end
+end)
+
+main:Toggle("Auto Sell",function(toggle)
+  _G.AS = toggle
+  while wait() and _G.AS do
+    firetouchinterest(game:GetService("Workspace").DropOffMeat.TouchPart, lp.Character.HumanoidRootPart, 0)
+    wait()
+    firetouchinterest(game:GetService("Workspace").DropOffMeat.TouchPart, lp.Character.HumanoidRootPart, 1)
   end
 end)
