@@ -42,6 +42,16 @@ main:Toggle("Auto Stats",function(toggle)
   end
 end)
 
+main:Toggle("Auto Rebirth",function(toggle)
+  _G.AR = toggle
+  while wait(1) and _G.AR do
+    local args = {
+        [1] = "Rebirth"
+    }
+    game:GetService("ReplicatedStorage").Events.Global:InvokeServer(unpack(args))
+  end
+end)
+
 main:Toggle("Kill Aura",function(toggle)
   _G.KA = toggle
   while wait() and _G.KA do
@@ -61,12 +71,10 @@ main:Toggle("Kill Aura",function(toggle)
 end)
 
 main:Button("God Mode",function()
-game:GetService("Players").LocalPlayer.PlayerGui.Interactions.LocalScript.Disabled = true
-
+  game:GetService("Players").LocalPlayer.PlayerGui.Interactions.LocalScript.Disabled = true
   local args = {
       [1] = "Safezone",
       [2] = true
   }
   game:GetService("ReplicatedStorage").Events.Global:InvokeServer(unpack(args))
-
 end)
