@@ -13,8 +13,8 @@ end)
 
 
 _G.Credits = {
-  "Created by Code002Lover & Ente_sama",
-  ["Discord"] = "8ytFhuj"
+  "Created by Code002Lover & Ente",
+  ["Discord"] = "vQBYBsvWhW"
 }
 
 local lp = game.Players.LocalPlayer
@@ -90,9 +90,7 @@ main:Toggle("Drop clothes off",function(toggle)
 end)
 
 main:Button("Open Shop",function()
-  firetouchinterest(game:GetService("Workspace").ArchysShopEntrance.Open, lp.Character.HumanoidRootPart, 0)
-  wait()
-  firetouchinterest(game:GetService("Workspace").ArchysShopEntrance.Open, lp.Character.HumanoidRootPart, 1)
+  lp.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ArchysShopEntrance.Open.CFrame + Vector3.new(0,4,0)
 end)
 
 main:Button("Plot TP",function()
