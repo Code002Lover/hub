@@ -1,0 +1,59 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+  VirtualUser:CaptureController()
+  VirtualUser:ClickButton2(Vector2.new())
+end)
+
+_G.Credits = {
+  "Created by Code002Lover & Ente",
+  ["Discord"] = "vQBYBsvWhW"
+}
+
+local lp = game.Players.LocalPlayer
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow("ZeroTwo Hub")
+local main = window:CreateFolder("Main")
+
+main:Toggle("Auto Strength",function(toggle)
+  _G.AS = toggle
+  while wait() and _G.AS do
+    tool = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool")
+    if(tool.Name == "Double Weight") then
+      s = 5
+    else
+      s = 1
+    end
+    local args = {
+        [1] = tool.Handle,
+        [2] = s
+    }
+    for i=1,_G.A or 10 do
+      game:GetService("ReplicatedStorage").addStrength:FireServer(unpack(args))
+    end
+  end
+end)
+
+main:Box("Strength Speed","int",function(value)
+_G.A = value or 10
+end)
+
+main:Button("Kill all",function()
+  for i,v in pairs(game.Players:GetPlayers()) do
+    if(v ~= lp) then
+      if(v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0) then
+        local args = {
+            [1] = v.Character.Humanoid,
+            [2] = v.Character.Humanoid.Health,
+            [3] = v.Character.HumanoidRootPart
+        }
+
+        game:GetService("Players").LocalPlayer.Character.Combat.LocalScript.punched:InvokeServer(unpack(args))
+      end
+    end
+  end
+end)
