@@ -1,0 +1,104 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+  VirtualUser:CaptureController()
+  VirtualUser:ClickButton2(Vector2.new())
+end)
+
+_G.Credits = {
+  "Created by Ente & Code002Lover",
+  ["Discord"] = "vQBYBsvWhW"
+}
+
+local lp = game.Players.LocalPlayer
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow("ZeroTwo Hub")
+local main = window:CreateFolder("Main")
+
+main:Toggle("Auto Cash",function(toggle)
+  _G.AC = toggle
+  while wait() and _G.AC do
+    v,r = nil,nil
+    sdiff = 9e9
+    if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Knife") then
+      lp.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Knife)
+    end
+    for i,p in pairs(game:GetService("Players"):GetPlayers()) do
+      if(p ~= lp and p.Character and p.Character:FindFirstChild("Head") and p.Character:FindFirstChild("Humanoid")) then
+        v = p.Character
+        Head = v.Head
+        pos = Head.Position
+        local hrp = lp.Character.HumanoidRootPart
+        diff = (hrp.Position - pos).Magnitude
+        if(diff <= sdiff and v.Humanoid.Health > 0) then
+          sdiff = diff
+          r = v
+          CFR = CFrame.new(Head.Position + Vector3.new(0,diff/15,0) , Vector3.new(pos.X, hrp.Position.Y, pos.Z))
+        end
+      end
+    end
+    local args = {
+        [1] = "throw",
+        [2] = CFR
+    }
+    game:GetService("ReplicatedStorage").forhackers:InvokeServer(unpack(args))
+
+    local args = {
+      [1] = "rhitreport",
+      [2] = r.Head,
+      [3] = r.Head.CFrame,
+      [4] = workspace.Camera.trash.Handle
+  }
+
+  game:GetService("ReplicatedStorage").forhackers:InvokeServer(unpack(args))
+
+    local args = {
+        [1] = "rhit",
+        [2] = r,
+        [3] = r.Head.CFrame,
+        [4] = workspace.Camera.trash.Handle,
+        [5] = game.ReplicatedStorage.locust.Value
+    }
+    pcall(function()
+      game:GetService("ReplicatedStorage").forhackers:InvokeServer(unpack(args))
+      local args = {
+          [1] = "hit",
+          [2] = {
+              [1] = r
+          }
+      }
+      game:GetService("ReplicatedStorage").forhackers:InvokeServer(unpack(args))
+    end)
+  end
+end)
+
+--[[
+main:Button("kill Crazy",function()
+  lp.Character.HumanoidRootPart.CFrame = game:GetService("Players").crazyraftcraft.Character.HumanoidRootPart.CFrame
+  wait(0.2)
+  local args = {
+      [1] = "hit",
+      [2] = {
+          [1] = game:GetService("Players").crazyraftcraft.Character
+      }
+  }
+
+  game:GetService("ReplicatedStorage").forhackers:InvokeServer(unpack(args))
+end)
+
+
+
+
+
+
+local args = {
+    [1] = "request_buy",
+    [2] = "Circuit"
+}
+
+game:GetService("ReplicatedStorage").forhackers:InvokeServer(unpack(args))
+]]--
