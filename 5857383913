@@ -47,51 +47,59 @@ main:Button("buy speed",buyspeed)
 main:Button("buy strength",buystrength)
 
 main:Toggle("Auto CashOut",function(toggle)
-_G.ca = toggle
-spawn(function()
-while wait() and _G.ca do
-if(Essentials.CashOut.BillboardGui.BillboardFrame.Coins.Text ~= "0") then
-cashout()
-wait(0.1)
-end
-end
-end)
+  _G.ca = toggle
+  spawn(function()
+    while wait() and _G.ca do
+      if(Essentials.CashOut.BillboardGui.BillboardFrame.Coins.Text ~= "0") then
+        cashout()
+        wait(0.1)
+      end
+    end
+  end)
 end)
 main:Toggle("Auto buy Workers",function(toggle)
-_G.bw = toggle
-spawn(function()
-while wait() and _G.bw do
-buyworker()
-end
-end)
+  _G.bw = toggle
+  spawn(function()
+    while wait() and _G.bw do
+      buyworker()
+    end
+  end)
 end)
 main:Toggle("Auto buy speed",function(toggle)
-_G.bs = toggle
-spawn(function()
-while wait() and _G.bs do
-buyspeed()
-end
-end)
+  _G.bs = toggle
+  spawn(function()
+    while wait() and _G.bs do
+      buyspeed()
+    end
+  end)
 end)
 main:Toggle("Auto buy strength",function(toggle)
-_G.bus = toggle
-spawn(function()
-while wait() and _G.bus do
-buystrength()
-end
+  _G.bus = toggle
+  spawn(function()
+    while wait() and _G.bus do
+      buystrength()
+    end
+  end)
 end)
+
+main:Toggle("Auto Teleport/Rebirth",function(toggle)
+  _G.ATR = toggle
+  while wait() and _G.ATR do
+    game:GetService("ReplicatedStorage").Signals.Teleport:FireServer()
+  end
 end)
+
 main:Toggle("Auto collect coins",function(toggle)
   _G.ac = toggle
   while wait() and _G.ac do
     if(#plot.Coins:GetChildren() ~= 0) then
       oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-    for i,v in pairs(plot.Coins:GetChildren()) do
-      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-      wait()
+      for i,v in pairs(plot.Coins:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+        wait()
+      end
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
     end
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
-  end
   end
 end)
 if(_G.MessageConnection) then
@@ -102,6 +110,11 @@ if(_G.TM) then
   what.Visible = false
 end
 end)
-main:Toggle("Toggle Messages",function(toggle)
-_G.TM = toggle
+main:Toggle("Toggle off Messages",function(toggle)
+  _G.TM = toggle
+  if(toggle) then
+    game:GetService("ReplicatedStorage").Sounds.Cant.Volume = 0
+  else
+    game:GetService("ReplicatedStorage").Sounds.Cant.Volume = 0.25
+  end
 end)
