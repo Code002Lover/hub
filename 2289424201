@@ -1,0 +1,69 @@
+repeat wait() until game
+repeat wait() until game:GetService("VirtualUser")
+repeat wait() until game.Players.LocalPlayer
+
+if(_G.hub == nil or _G.hub == false) then return false end
+
+local VirtualUser=game:service'VirtualUser'
+game:service('Players').LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+_G.Credits = {
+  "Created by Ente & Code002Lover",
+  ["Discord"] = "vQBYBsvWhW"
+}
+local marketplaceService = game:GetService("MarketplaceService")
+local lp = game.Players.LocalPlayer
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow("ZeroTwo Hub")
+local main = window:CreateFolder("Main")
+pcall(function()
+lp.PlayerScripts["Anti-Exploit"]:Destroy()
+lp.PlayerScripts["Anti-Exploit-BackUp"]:Destroy()
+end)
+main:Box("Give cash","int",function(value)
+  local args = {
+    [1] = "Hammer",
+    [2] = -value
+  }
+  game:GetService("ReplicatedStorage").Purchased:FireServer(unpack(args))
+end)
+
+main:Toggle("Auto Rebirth",function(toggle)
+  _G.AR = toggle
+  while wait() and _G.AR do
+    workspace.Events.Prestige:FireServer()
+    wait(0.1)
+  end
+end)
+
+main:Toggle("Farm Serverside cash",function(toggle)
+  _G.FSC = toggle
+  tool = lp.DiggingTool.Value
+  block = game:GetService("Workspace").Ores:GetChildren()
+  while wait() and _G.FSC do
+    lp.Character.Humanoid:UnequipTools()
+    lp.Character.Humanoid:EquipTool(lp.Backpack[tool])
+    for i,v in pairs(block) do
+      lp.Character.HumanoidRootPart.CFrame = v.Main.CFrame
+      local args = {
+          [1] = v.Main,
+          [2] = 550000,
+          [3] = game:GetService("Players").LocalPlayer.Character[tool].Handle.DigSound
+      }
+      game:GetService("ReplicatedStorage").DestroyBlock:FireServer(unpack(args))
+    end
+  end
+end)
+
+main:Toggle("Auto Sell",function(toggle)
+  _G.AS = toggle
+  while wait() and _G.AS do
+    Loc = game:GetService("Workspace")["Main_Sellings"].Sell.CFrame
+    game:GetService("Workspace")["Main_Sellings"].Sell.CFrame = lp.Character.HumanoidRootPart.CFrame
+    wait(0.1)
+    game:GetService("Workspace")["Main_Sellings"].Sell.CFrame = Loc
+  end
+end)
