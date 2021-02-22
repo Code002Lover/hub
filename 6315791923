@@ -1,0 +1,46 @@
+
+
+if(_G.hub == nil or _G.hub == false) then return false end
+
+local lp = game.Players.LocalPlayer
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow("ZeroTwo Hub")
+local main = window:CreateFolder("Main")
+
+
+
+function touch(part)
+  firetouchinterest(part,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
+  game:GetService("RunService").Stepped:Wait()
+  firetouchinterest(part,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
+  return true
+end
+
+function sell()
+  touch(game:GetService("Workspace").TouchParts.Sell.Hitter)
+end
+function click()
+  game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):Activate()
+end
+
+main:Toggle("Auto click",function(toggle)
+  _G.AC = toggle
+  while wait() and _G.AC do
+    pcall(click)
+  end
+end)
+
+main:Toggle("Auto Sell",function(toggle)
+  _G.AS = toggle
+  while _G.AS do
+    sell()
+  end
+end)
+
+main:Toggle("Auto Upgrade laptop capacity",function(toggle)
+  _G.AULC = toggle
+  while wait() and _G.AULC do
+    game:GetService("ReplicatedStorage").Events.Upgrade:FireServer()
+  end
+end)
