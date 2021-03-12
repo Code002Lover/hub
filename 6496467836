@@ -1,0 +1,64 @@
+if(_G.hub == nil or _G.hub == false) then return false end
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow("ZeroTwo Hub")
+local main = window:CreateFolder("Main")
+local up = window:CreateFolder("Upgrades")
+
+local lp = game.Players.LocalPlayer
+
+main:Toggle("Auto Click",function(toggle)
+  _G.AC = toggle
+  while wait() and _G.AC do
+    game:GetService("ReplicatedStorage").Remotes.Click:FireServer()
+  end
+end)
+
+up:Toggle("Auto Upgrade Boosters",function(toggle)
+  _G.AUB = toggle
+  while wait() and _G.AUB do
+    game:GetService("ReplicatedStorage").Remotes.UpgradeBooster:FireServer()
+  end
+end)
+
+up:Toggle("Auto Buy Decrease Booster Cooldown",function(toggle)
+  _G.ABDBC = toggle
+  while wait() and _G.ABDBC do
+    game:GetService("ReplicatedStorage").Remotes.UpgradeCooldown:FireServer()
+  end
+end)
+
+up:Toggle("Auto Buy AutoClicker",function(toggle)
+  _G.ABC = toggle
+  while wait() and _G.ABC do
+    game:GetService("ReplicatedStorage").Remotes.UpgradeAutoclicker:FireServer()
+  end
+end)
+
+up:Toggle("Auto Buy Double Clicks",function(toggle)
+  _G.ABU = toggle
+  while wait() and _G.ABU do
+    game:GetService("ReplicatedStorage").Remotes.UpgradeDoubleClicks:FireServer()
+  end
+end)
+
+main:Toggle("Auto Rebirth",function(toggle)
+  _G.AR = toggle
+  while wait() and _G.AR do
+    game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer()
+  end
+end)
+
+up:Toggle("Auto Buy x2 Rebirths",function(toggle)
+  _G.ABx2R = toggle
+  while wait() and _G.ABx2R do
+    game:GetService("ReplicatedStorage").Remotes.UpgradeDoubleRebirth:FireServer()
+  end
+end)
+
+up:Toggle("Auto Buy 'Auto Buy Boost Upgrade'",function(toggle)
+  _G.ABABBU = toggle
+  while wait() and _G.ABABBU do
+    game:GetService("ReplicatedStorage").Remotes.UpgradeAutoBoost:FireServer()
+  end
+end)
