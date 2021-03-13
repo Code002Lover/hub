@@ -25,7 +25,7 @@ end)
 main:Toggle("Auto Sell",function(toggle)
   _G.AS = toggle
   while wait() and _G.AS do
-    touch(game:GetService("Workspace").Islands.Home.SellZone.SellTouch)
+    touch(game:GetService("Workspace").Islands.Mars.SellZone.SellTouch)
   end
 end)
 
