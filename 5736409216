@@ -1,0 +1,49 @@
+if(_G.hub == nil or _G.hub == false) then return false end
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mystikfluu/uilib/master/uilib.lua"))()
+local window = library:CreateWindow("ZeroTwo Hub")
+local main = window:CreateFolder("Main")
+
+local lp = game.Players.LocalPlayer
+local tycoon = workspace:FindFirstChild("Tycoon" .. lp.Name)
+
+function touch(part)
+  firetouchinterest(part, lp.Character.HumanoidRootPart, 0)
+  wait()
+  firetouchinterest(part, lp.Character.HumanoidRootPart, 1)
+end
+
+-- game:GetService("Workspace")["TycoonEnte_sama"].Floor1.ButtonPavement1.Button
+
+main:Toggle("Auto Collect Cash",function(toggle)
+  _G.ACC = toggle
+  while wait() and _G.ACC do
+    touch(tycoon.Floor1.CashMachine.ButtonCollect.Button)
+  end
+end)
+
+main:Toggle("Auto Buy Buttons",function(toggle)
+  _G.ABB = toggle
+  while wait() and _G.ABB do
+    for i,v in pairs(tycoon:GetChildren()) do
+      if(v:IsA("Model")) then --if its a floor
+        for i2,v2 in pairs(v:GetChildren()) do
+          if(v2:FindFirstChild("Button")) then
+            touch(v2.Button)
+          end
+        end
+        if(v:FindFirstChild("StoreLocations")) then
+          for i2,v2 in pairs(v.StoreLocations:GetChildren()) do
+            if(v2:IsA("Model")) then
+              for i3,v3 in pairs(v2.Buttons:GetChildren()) do
+                if(v3:FindFirstChild("Button")) then
+                  touch(v3.Button)
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end)
